@@ -1,0 +1,15 @@
+# byte-compiled
+__pycache__/
+*.py[cod]
+*$py.class
+.ruff_cache
+
+# ide
+**.idea**
+**.vscode**
+
+# files
+*.lock
+
+# folders
+dist
