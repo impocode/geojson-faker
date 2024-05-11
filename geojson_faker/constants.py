@@ -7,6 +7,9 @@ class geo_keys(NamedTuple):
     position = "position"
     position2d = "position2d"
     position3d = "position3d"
+    point = "point"
+    point2d = "point2d"
+    point3d = "point3d"
 
 
 DIMENSIONS = [Dimension.two, Dimension.three]

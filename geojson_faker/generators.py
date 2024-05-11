@@ -1,9 +1,14 @@
 from random import randrange, uniform
 
+from geojson_pydantic.geometries import Point
 from geojson_pydantic.types import Position, Position2D, Position3D
 
 from geojson_faker.constants import DIMENSIONS
 from geojson_faker.types import Dimension
+
+
+def _get_dimension(dimension: Dimension | None = None) -> Dimension:
+    return dimension or DIMENSIONS[randrange(len(DIMENSIONS))]
 
 
 def fake_longitude() -> float:
@@ -19,9 +24,13 @@ def fake_altitude() -> float:
 
 
 def fake_position(dimension: Dimension | None = None) -> Position:
-    dimension = DIMENSIONS[randrange(len(DIMENSIONS))] if dimension is None else dimension
+    dimension = _get_dimension(dimension=dimension)
     if dimension == Dimension.two:
         return Position2D(longitude=fake_longitude(), latitude=fake_latitude())
     return Position3D(
         longitude=fake_longitude(), latitude=fake_latitude(), altitude=fake_altitude()
     )
+
+
+def fake_point(dimension: Dimension | None = None) -> Point:
+    return Point(type="Point", coordinates=fake_position(dimension=dimension))
