@@ -26,7 +26,7 @@ repository = "https://github.com/impocode/geojson-faker"
 documentation = "https://github.com/impocode/geojson-faker"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.8.1"
 geojson-pydantic = "^1.1.0"
 
 [tool.poetry.group.dev.dependencies]
