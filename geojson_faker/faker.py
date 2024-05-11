@@ -1,11 +1,11 @@
 from collections.abc import Callable
 from typing import TypeVar
 
-from geojson_pydantic.geometries import Point
+from geojson_pydantic.geometries import MultiPoint, Point
 from geojson_pydantic.types import Position
 
 from geojson_faker.constants import geo_keys
-from geojson_faker.generators import fake_point, fake_position
+from geojson_faker.generators import fake_multi_point, fake_point, fake_position
 from geojson_faker.types import Dimension
 
 _GeoJsonType = TypeVar("_GeoJsonType")
@@ -21,6 +21,9 @@ class GeoJsonFaker:
             geo_keys.point: None,
             geo_keys.point2d: None,
             geo_keys.point3d: None,
+            geo_keys.multi_point: None,
+            geo_keys.multi_point2d: None,
+            geo_keys.multi_point3d: None,
         }
 
     @property
@@ -48,6 +51,22 @@ class GeoJsonFaker:
     @property
     def point3d(self) -> Point:
         return self._fake(func=fake_point, geo_key=geo_keys.point3d, dimension=Dimension.three)
+
+    @property
+    def multi_point(self) -> MultiPoint:
+        return self._fake(func=fake_multi_point, geo_key=geo_keys.multi_point)
+
+    @property
+    def multi_point2d(self) -> MultiPoint:
+        return self._fake(
+            func=fake_multi_point, geo_key=geo_keys.multi_point2d, dimension=Dimension.two
+        )
+
+    @property
+    def multi_point3d(self) -> MultiPoint:
+        return self._fake(
+            func=fake_multi_point, geo_key=geo_keys.multi_point3d, dimension=Dimension.three
+        )
 
     def _fake(
         self,

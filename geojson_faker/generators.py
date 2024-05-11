@@ -1,6 +1,6 @@
-from random import randrange, uniform
+from random import randint, randrange, uniform
 
-from geojson_pydantic.geometries import Point
+from geojson_pydantic.geometries import MultiPoint, Point
 from geojson_pydantic.types import Position, Position2D, Position3D
 
 from geojson_faker.constants import DIMENSIONS
@@ -34,3 +34,12 @@ def fake_position(dimension: Dimension | None = None) -> Position:
 
 def fake_point(dimension: Dimension | None = None) -> Point:
     return Point(type="Point", coordinates=fake_position(dimension=dimension))
+
+
+def fake_multi_point(dimension: Dimension | None = None, max_length: int = 1000) -> MultiPoint:
+    return MultiPoint(
+        type="MultiPoint",
+        coordinates=[
+            fake_position(dimension=dimension) for _ in range(0, randint(0, max_length + 1))
+        ],
+    )

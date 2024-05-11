@@ -1,4 +1,4 @@
-from geojson_pydantic.geometries import Point
+from geojson_pydantic.geometries import MultiPoint, Point
 from geojson_pydantic.types import Position, Position2D, Position3D
 
 from geojson_faker import GeoJsonFaker
@@ -63,7 +63,7 @@ def test_point():
     assert isinstance(point.coordinates.longitude, float)
     assert isinstance(point.coordinates.latitude, float)
     if isinstance(point.coordinates, Position3D):
-        assert isinstance(point.coordinates.longitude, float)
+        assert isinstance(point.coordinates.altitude, float)
 
 
 def test_point2d():
@@ -73,7 +73,7 @@ def test_point2d():
     assert isinstance(point, Point)
     assert point.type == "Point"
 
-    assert isinstance(point.coordinates, Position2D) or not isinstance(
+    assert isinstance(point.coordinates, Position2D) and not isinstance(
         point.coordinates, Position3D
     )
     assert isinstance(point.coordinates.longitude, float)
@@ -87,9 +87,54 @@ def test_point3d():
     assert isinstance(point, Point)
     assert point.type == "Point"
 
-    assert isinstance(point.coordinates, Position3D) or not isinstance(
+    assert isinstance(point.coordinates, Position3D) and not isinstance(
         point.coordinates, Position2D
     )
     assert isinstance(point.coordinates.longitude, float)
     assert isinstance(point.coordinates.latitude, float)
     assert isinstance(point.coordinates.altitude, float)
+
+
+def test_multi_point():
+    geojson_faker = GeoJsonFaker()
+    point = geojson_faker.multi_point
+
+    assert isinstance(point, MultiPoint)
+    assert point.type == "MultiPoint"
+    assert 0 < len(point.coordinates) < 1000
+
+    for coordinates in point.coordinates:
+        assert isinstance(coordinates, Position2D) or isinstance(coordinates, Position3D)
+        assert isinstance(coordinates.longitude, float)
+        assert isinstance(coordinates.latitude, float)
+        if isinstance(coordinates, Position3D):
+            assert isinstance(coordinates.altitude, float)
+
+
+def test_multi_point2d():
+    geojson_faker = GeoJsonFaker()
+    point = geojson_faker.multi_point2d
+
+    assert isinstance(point, MultiPoint)
+    assert point.type == "MultiPoint"
+    assert 0 < len(point.coordinates) < 1000
+
+    for coordinates in point.coordinates:
+        assert isinstance(coordinates, Position2D) and not isinstance(coordinates, Position3D)
+        assert isinstance(coordinates.longitude, float)
+        assert isinstance(coordinates.latitude, float)
+
+
+def test_multi_point3d():
+    geojson_faker = GeoJsonFaker()
+    point = geojson_faker.multi_point3d
+
+    assert isinstance(point, MultiPoint)
+    assert point.type == "MultiPoint"
+    assert 0 < len(point.coordinates) < 1000
+
+    for coordinates in point.coordinates:
+        assert isinstance(coordinates, Position3D) and not isinstance(coordinates, Position2D)
+        assert isinstance(coordinates.longitude, float)
+        assert isinstance(coordinates.latitude, float)
+        assert isinstance(coordinates.altitude, float)
