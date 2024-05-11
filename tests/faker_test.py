@@ -1,4 +1,4 @@
-from geojson_pydantic.geometries import MultiPoint, Point
+from geojson_pydantic.geometries import LineString, MultiPoint, Point
 from geojson_pydantic.types import Position, Position2D, Position3D
 
 from geojson_faker import GeoJsonFaker
@@ -97,13 +97,13 @@ def test_point3d():
 
 def test_multi_point():
     geojson_faker = GeoJsonFaker()
-    point = geojson_faker.multi_point
+    multi_point = geojson_faker.multi_point
 
-    assert isinstance(point, MultiPoint)
-    assert point.type == "MultiPoint"
-    assert 0 < len(point.coordinates) < 1000
+    assert isinstance(multi_point, MultiPoint)
+    assert multi_point.type == "MultiPoint"
+    assert 0 < len(multi_point.coordinates) < 1000
 
-    for coordinates in point.coordinates:
+    for coordinates in multi_point.coordinates:
         assert isinstance(coordinates, Position2D) or isinstance(coordinates, Position3D)
         assert isinstance(coordinates.longitude, float)
         assert isinstance(coordinates.latitude, float)
@@ -113,13 +113,13 @@ def test_multi_point():
 
 def test_multi_point2d():
     geojson_faker = GeoJsonFaker()
-    point = geojson_faker.multi_point2d
+    multi_point = geojson_faker.multi_point2d
 
-    assert isinstance(point, MultiPoint)
-    assert point.type == "MultiPoint"
-    assert 0 < len(point.coordinates) < 1000
+    assert isinstance(multi_point, MultiPoint)
+    assert multi_point.type == "MultiPoint"
+    assert 0 < len(multi_point.coordinates) < 1000
 
-    for coordinates in point.coordinates:
+    for coordinates in multi_point.coordinates:
         assert isinstance(coordinates, Position2D) and not isinstance(coordinates, Position3D)
         assert isinstance(coordinates.longitude, float)
         assert isinstance(coordinates.latitude, float)
@@ -127,13 +127,58 @@ def test_multi_point2d():
 
 def test_multi_point3d():
     geojson_faker = GeoJsonFaker()
-    point = geojson_faker.multi_point3d
+    multi_point = geojson_faker.multi_point3d
 
-    assert isinstance(point, MultiPoint)
-    assert point.type == "MultiPoint"
-    assert 0 < len(point.coordinates) < 1000
+    assert isinstance(multi_point, MultiPoint)
+    assert multi_point.type == "MultiPoint"
+    assert 0 < len(multi_point.coordinates) < 1000
 
-    for coordinates in point.coordinates:
+    for coordinates in multi_point.coordinates:
+        assert isinstance(coordinates, Position3D) and not isinstance(coordinates, Position2D)
+        assert isinstance(coordinates.longitude, float)
+        assert isinstance(coordinates.latitude, float)
+        assert isinstance(coordinates.altitude, float)
+
+
+def test_line_string():
+    geojson_faker = GeoJsonFaker()
+    line_string = geojson_faker.line_string
+
+    assert isinstance(line_string, LineString)
+    assert line_string.type == "LineString"
+    assert 2 < len(line_string.coordinates) < 1000
+
+    for coordinates in line_string.coordinates:
+        assert isinstance(coordinates, Position2D) or isinstance(coordinates, Position3D)
+        assert isinstance(coordinates.longitude, float)
+        assert isinstance(coordinates.latitude, float)
+        if isinstance(coordinates, Position3D):
+            assert isinstance(coordinates.altitude, float)
+
+
+def test_line_string2d():
+    geojson_faker = GeoJsonFaker()
+    line_string = geojson_faker.line_string2d
+
+    assert isinstance(line_string, LineString)
+    assert line_string.type == "LineString"
+    assert 2 < len(line_string.coordinates) < 1000
+
+    for coordinates in line_string.coordinates:
+        assert isinstance(coordinates, Position2D) and not isinstance(coordinates, Position3D)
+        assert isinstance(coordinates.longitude, float)
+        assert isinstance(coordinates.latitude, float)
+
+
+def test_line_string3d():
+    geojson_faker = GeoJsonFaker()
+    line_string = geojson_faker.line_string3d
+
+    assert isinstance(line_string, LineString)
+    assert line_string.type == "LineString"
+    assert 2 < len(line_string.coordinates) < 1000
+
+    for coordinates in line_string.coordinates:
         assert isinstance(coordinates, Position3D) and not isinstance(coordinates, Position2D)
         assert isinstance(coordinates.longitude, float)
         assert isinstance(coordinates.latitude, float)
