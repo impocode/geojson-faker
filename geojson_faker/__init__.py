@@ -4,6 +4,7 @@ from geojson_faker.generators import (
     fake_latitude,
     fake_line_string,
     fake_longitude,
+    fake_multi_line_string,
     fake_multi_point,
     fake_point,
     fake_position,
@@ -20,4 +21,5 @@ __all__ = [
     "fake_point",
     "fake_multi_point",
     "fake_line_string",
+    "fake_multi_line_string",
 ]

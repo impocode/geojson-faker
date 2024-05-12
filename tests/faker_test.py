@@ -1,4 +1,4 @@
-from geojson_pydantic.geometries import LineString, MultiPoint, Point
+from geojson_pydantic.geometries import LineString, MultiLineString, MultiPoint, Point
 from geojson_pydantic.types import Position, Position2D, Position3D
 
 from geojson_faker import GeoJsonFaker
@@ -183,3 +183,57 @@ def test_line_string3d():
         assert isinstance(coordinates.longitude, float)
         assert isinstance(coordinates.latitude, float)
         assert isinstance(coordinates.altitude, float)
+
+
+def test_multi_line_string():
+    geojson_faker = GeoJsonFaker()
+    multi_line_string = geojson_faker.multi_line_string
+
+    assert isinstance(multi_line_string, MultiLineString)
+    assert multi_line_string.type == "MultiLineString"
+    assert 0 < len(multi_line_string.coordinates) < 1000
+
+    for line_string in multi_line_string.coordinates:
+        assert isinstance(line_string, list)
+        assert 2 < len(multi_line_string.coordinates) < 1000
+        for coordinates in line_string:
+            assert isinstance(coordinates, Position2D) or isinstance(coordinates, Position3D)
+            assert isinstance(coordinates.longitude, float)
+            assert isinstance(coordinates.latitude, float)
+            if isinstance(coordinates, Position3D):
+                assert isinstance(coordinates.altitude, float)
+
+
+def test_multi_line_string2d():
+    geojson_faker = GeoJsonFaker()
+    multi_line_string = geojson_faker.multi_line_string2d
+
+    assert isinstance(multi_line_string, MultiLineString)
+    assert multi_line_string.type == "MultiLineString"
+    assert 0 < len(multi_line_string.coordinates) < 1000
+
+    for line_string in multi_line_string.coordinates:
+        assert isinstance(line_string, list)
+        assert 2 < len(multi_line_string.coordinates) < 1000
+        for coordinates in line_string:
+            assert isinstance(coordinates, Position2D) and not isinstance(coordinates, Position3D)
+            assert isinstance(coordinates.longitude, float)
+            assert isinstance(coordinates.latitude, float)
+
+
+def test_multi_line_string3d():
+    geojson_faker = GeoJsonFaker()
+    multi_line_string = geojson_faker.multi_line_string3d
+
+    assert isinstance(multi_line_string, MultiLineString)
+    assert multi_line_string.type == "MultiLineString"
+    assert 0 < len(multi_line_string.coordinates) < 1000
+
+    for line_string in multi_line_string.coordinates:
+        assert isinstance(line_string, list)
+        assert 2 < len(multi_line_string.coordinates) < 1000
+        for coordinates in line_string:
+            assert isinstance(coordinates, Position3D) and not isinstance(coordinates, Position2D)
+            assert isinstance(coordinates.longitude, float)
+            assert isinstance(coordinates.latitude, float)
+            assert isinstance(coordinates.altitude, float)

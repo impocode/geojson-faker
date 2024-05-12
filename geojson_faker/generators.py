@@ -1,6 +1,6 @@
 from random import randint, randrange, uniform
 
-from geojson_pydantic.geometries import LineString, MultiPoint, Point
+from geojson_pydantic.geometries import LineString, MultiLineString, MultiPoint, Point
 from geojson_pydantic.types import Position, Position2D, Position3D
 
 from geojson_faker.constants import DIMENSIONS
@@ -39,7 +39,7 @@ def fake_point(dimension: Dimension | None = None) -> Point:
 def fake_multi_point(dimension: Dimension | None = None, max_length: int = 1000) -> MultiPoint:
     return MultiPoint(
         type="MultiPoint",
-        coordinates=[fake_position(dimension=dimension) for _ in range(0, randint(0, max_length))],
+        coordinates=[fake_position(dimension=dimension) for _ in range(0, randint(1, max_length))],
     )
 
 
@@ -53,3 +53,17 @@ def fake_line_string(dimension: Dimension | None = None, max_length: int = 1000)
             fake_position(dimension=dimension) for _ in range(0, randint(min_length, max_length))
         ],
     )
+
+
+def fake_multi_line_string(
+    dimension: Dimension | None = None, max_length: int = 1000
+) -> MultiLineString:
+    min_length = 2
+    if max_length < min_length:
+        max_length = min_length
+    coordinates = []
+    for _ in range(0, randint(1, max_length)):
+        coordinates.append(
+            fake_position(dimension=dimension) for _ in range(0, randint(min_length, max_length))
+        )
+    return MultiLineString(type="MultiLineString", coordinates=coordinates)
