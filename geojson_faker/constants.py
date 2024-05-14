@@ -19,6 +19,9 @@ class geo_keys(NamedTuple):
     multi_line_string = "multi_line_string"
     multi_line_string2d = "multi_line_string2d"
     multi_line_string3d = "multi_line_string3d"
+    polygon = "polygon"
+    polygon2d = "polygon2d"
+    polygon3d = "polygon3d"
 
 
 DIMENSIONS = [Dimension.two, Dimension.three]

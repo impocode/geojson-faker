@@ -7,6 +7,7 @@ from geojson_faker.generators import (
     fake_multi_line_string,
     fake_multi_point,
     fake_point,
+    fake_polygon,
     fake_position,
 )
 
@@ -22,4 +23,5 @@ __all__ = [
     "fake_multi_point",
     "fake_line_string",
     "fake_multi_line_string",
+    "fake_polygon",
 ]

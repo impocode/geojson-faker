@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from typing import TypeVar
 
-from geojson_pydantic.geometries import LineString, MultiLineString, MultiPoint, Point
+from geojson_pydantic.geometries import LineString, MultiLineString, MultiPoint, Point, Polygon
 from geojson_pydantic.types import Position
 
 from geojson_faker.constants import geo_keys
@@ -10,6 +10,7 @@ from geojson_faker.generators import (
     fake_multi_line_string,
     fake_multi_point,
     fake_point,
+    fake_polygon,
     fake_position,
 )
 from geojson_faker.types import Dimension
@@ -36,6 +37,9 @@ class GeoJsonFaker:
             geo_keys.multi_line_string: None,
             geo_keys.multi_line_string2d: None,
             geo_keys.multi_line_string3d: None,
+            geo_keys.polygon: None,
+            geo_keys.polygon2d: None,
+            geo_keys.polygon3d: None,
         }
 
     @property
@@ -115,6 +119,18 @@ class GeoJsonFaker:
             geo_key=geo_keys.multi_line_string3d,
             dimension=Dimension.three,
         )
+
+    @property
+    def polygon(self) -> Polygon:
+        return self._fake(func=fake_polygon, geo_key=geo_keys.polygon)
+
+    @property
+    def polygon2d(self) -> Polygon:
+        return self._fake(func=fake_polygon, geo_key=geo_keys.polygon2d, dimension=Dimension.two)
+
+    @property
+    def polygon3d(self) -> Polygon:
+        return self._fake(func=fake_polygon, geo_key=geo_keys.polygon3d, dimension=Dimension.three)
 
     def _fake(
         self,

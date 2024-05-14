@@ -13,7 +13,7 @@
 |     MultiPoint     |     done    |
 |     LineString     |     done    |
 |  MultiLineString   |     done    |
-|      Polygon       | in progress |
+|      Polygon       |     done    |
 |    MultiPolygon    | in progress |
 | GeometryCollection | in progress |
 |      Feature       | in progress |
