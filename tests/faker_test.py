@@ -1,4 +1,11 @@
-from geojson_pydantic.geometries import LineString, MultiLineString, MultiPoint, Point, Polygon
+from geojson_pydantic.geometries import (
+    LineString,
+    MultiLineString,
+    MultiPoint,
+    MultiPolygon,
+    Point,
+    Polygon,
+)
 from geojson_pydantic.types import Position, Position2D, Position3D
 
 from geojson_faker import GeoJsonFaker
@@ -291,3 +298,67 @@ def test_polygon3d():
             assert isinstance(coordinates.longitude, float)
             assert isinstance(coordinates.latitude, float)
             assert isinstance(coordinates.altitude, float)
+
+
+def test_multi_polygon():
+    geojson_faker = GeoJsonFaker()
+    multi_polygon = geojson_faker.multi_polygon
+
+    assert isinstance(multi_polygon, MultiPolygon)
+    assert multi_polygon.type == "MultiPolygon"
+    assert 0 < len(multi_polygon.coordinates) <= 100
+
+    for polygon in multi_polygon.coordinates:
+        assert isinstance(polygon, list)
+        for linear_ring in polygon:
+            assert isinstance(linear_ring, list)
+            assert 4 <= len(linear_ring) <= 100
+            for coordinates in linear_ring:
+                assert isinstance(coordinates, Position2D) or isinstance(coordinates, Position3D)
+                assert isinstance(coordinates.longitude, float)
+                assert isinstance(coordinates.latitude, float)
+                if isinstance(coordinates, Position3D):
+                    assert isinstance(coordinates.altitude, float)
+
+
+def test_multi_polygon2d():
+    geojson_faker = GeoJsonFaker()
+    multi_polygon = geojson_faker.multi_polygon2d
+
+    assert isinstance(multi_polygon, MultiPolygon)
+    assert multi_polygon.type == "MultiPolygon"
+    assert 0 < len(multi_polygon.coordinates) <= 100
+
+    for polygon in multi_polygon.coordinates:
+        assert isinstance(polygon, list)
+        for linear_ring in polygon:
+            assert isinstance(linear_ring, list)
+            assert 4 <= len(linear_ring) <= 100
+            for coordinates in linear_ring:
+                assert isinstance(coordinates, Position2D) and not isinstance(
+                    coordinates, Position3D
+                )
+                assert isinstance(coordinates.longitude, float)
+                assert isinstance(coordinates.latitude, float)
+
+
+def test_multi_polygon3d():
+    geojson_faker = GeoJsonFaker()
+    multi_polygon = geojson_faker.multi_polygon3d
+
+    assert isinstance(multi_polygon, MultiPolygon)
+    assert multi_polygon.type == "MultiPolygon"
+    assert 0 < len(multi_polygon.coordinates) <= 100
+
+    for polygon in multi_polygon.coordinates:
+        assert isinstance(polygon, list)
+        for linear_ring in polygon:
+            assert isinstance(linear_ring, list)
+            assert 4 <= len(linear_ring) <= 100
+            for coordinates in linear_ring:
+                assert isinstance(coordinates, Position3D) and not isinstance(
+                    coordinates, Position2D
+                )
+                assert isinstance(coordinates.longitude, float)
+                assert isinstance(coordinates.latitude, float)
+                assert isinstance(coordinates.altitude, float)

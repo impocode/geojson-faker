@@ -14,7 +14,7 @@
 |     LineString     |     done    |
 |  MultiLineString   |     done    |
 |      Polygon       |     done    |
-|    MultiPolygon    | in progress |
+|    MultiPolygon    |     done    |
 | GeometryCollection | in progress |
 |      Feature       | in progress |
 |  FeatureCollection | in progress |

@@ -22,6 +22,9 @@ class geo_keys(NamedTuple):
     polygon = "polygon"
     polygon2d = "polygon2d"
     polygon3d = "polygon3d"
+    multi_polygon = "multi_polygon"
+    multi_polygon2d = "multi_polygon2d"
+    multi_polygon3d = "multi_polygon3d"
 
 
 DIMENSIONS = [Dimension.two, Dimension.three]

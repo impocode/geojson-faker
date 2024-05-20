@@ -1,6 +1,13 @@
 from random import randint, randrange, uniform
 
-from geojson_pydantic.geometries import LineString, MultiLineString, MultiPoint, Point, Polygon
+from geojson_pydantic.geometries import (
+    LineString,
+    MultiLineString,
+    MultiPoint,
+    MultiPolygon,
+    Point,
+    Polygon,
+)
 from geojson_pydantic.types import Position, Position2D, Position3D
 
 from geojson_faker.constants import DIMENSIONS
@@ -103,3 +110,33 @@ def fake_polygon(
         linear_ring.append(end_coordinates)
         coordinates.append(linear_ring)
     return Polygon(type="Polygon", coordinates=coordinates)
+
+
+def fake_multi_polygon(
+    dimension: Dimension | None = None,
+    max_coordinates: int = 100,
+    max_polygon_coordinates: int = 100,
+    max_linear_ring_coordinates: int = 100,
+) -> MultiPolygon:
+    min_linear_ring_coordinates = 4
+    if max_linear_ring_coordinates < min_linear_ring_coordinates:
+        max_linear_ring_coordinates = min_linear_ring_coordinates
+    coordinates = []
+    for _ in _randintrange(1, max_coordinates):
+        polygon_coordinates = []
+        for _ in _randintrange(1, max_polygon_coordinates):
+            start_coordinates = end_coordinates = fake_position(dimension=dimension)
+            linear_ring = []
+            linear_ring.append(start_coordinates)
+            linear_ring.extend(
+                [
+                    fake_position(dimension=dimension)
+                    for _ in _randintrange(
+                        min_linear_ring_coordinates - 2, max_linear_ring_coordinates - 2
+                    )
+                ]
+            )
+            linear_ring.append(end_coordinates)
+            polygon_coordinates.append(linear_ring)
+        coordinates.append(polygon_coordinates)
+    return MultiPolygon(type="MultiPolygon", coordinates=coordinates)
