@@ -25,6 +25,9 @@ class geo_keys(NamedTuple):
     multi_polygon = "multi_polygon"
     multi_polygon2d = "multi_polygon2d"
     multi_polygon3d = "multi_polygon3d"
+    geometry_collection = "geometry_collection"
+    geometry_collection2d = "geometry_collection2d"
+    geometry_collection3d = "geometry_collection3d"
 
 
 DIMENSIONS = [Dimension.two, Dimension.three]

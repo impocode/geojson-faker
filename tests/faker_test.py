@@ -1,10 +1,12 @@
 from geojson_pydantic.geometries import (
+    GeometryCollection,
     LineString,
     MultiLineString,
     MultiPoint,
     MultiPolygon,
     Point,
     Polygon,
+    _GeometryBase,
 )
 from geojson_pydantic.types import Position, Position2D, Position3D
 
@@ -362,3 +364,39 @@ def test_multi_polygon3d():
                 assert isinstance(coordinates.longitude, float)
                 assert isinstance(coordinates.latitude, float)
                 assert isinstance(coordinates.altitude, float)
+
+
+def test_geometry_collection():
+    geojson_faker = GeoJsonFaker()
+    geometry_collection = geojson_faker.geometry_collection
+
+    assert isinstance(geometry_collection, GeometryCollection)
+    assert geometry_collection.type == "GeometryCollection"
+    assert len(geometry_collection.geometries) > 0
+
+    for geometry in geometry_collection.geometries:
+        assert isinstance(geometry, _GeometryBase)
+
+
+def test_geometry_collection2d():
+    geojson_faker = GeoJsonFaker()
+    geometry_collection = geojson_faker.geometry_collection2d
+
+    assert isinstance(geometry_collection, GeometryCollection)
+    assert geometry_collection.type == "GeometryCollection"
+    assert len(geometry_collection.geometries) > 0
+
+    for geometry in geometry_collection.geometries:
+        assert isinstance(geometry, _GeometryBase)
+
+
+def test_geometry_collection3d():
+    geojson_faker = GeoJsonFaker()
+    geometry_collection = geojson_faker.geometry_collection3d
+
+    assert isinstance(geometry_collection, GeometryCollection)
+    assert geometry_collection.type == "GeometryCollection"
+    assert len(geometry_collection.geometries) > 0
+
+    for geometry in geometry_collection.geometries:
+        assert isinstance(geometry, _GeometryBase)

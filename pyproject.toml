@@ -3,8 +3,8 @@ name = "geojson-faker"
 version = "0.3.0"
 description = "GeoJson fake generator."
 
-authors = ["impocode <impocode@impocode.com>"]
-maintainers = ["impocode <impocode@impocode.com>"]
+authors = ["impocode <impocode@impocode.one>"]
+maintainers = ["impocode <impocode@impocode.one>"]
 
 license= "MIT"
 readme = "readme.md"

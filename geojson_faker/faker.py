@@ -2,6 +2,7 @@ from collections.abc import Callable
 from typing import TypeVar
 
 from geojson_pydantic.geometries import (
+    GeometryCollection,
     LineString,
     MultiLineString,
     MultiPoint,
@@ -13,6 +14,7 @@ from geojson_pydantic.types import Position
 
 from geojson_faker.constants import geo_keys
 from geojson_faker.generators import (
+    fake_geometry_collection,
     fake_line_string,
     fake_multi_line_string,
     fake_multi_point,
@@ -51,6 +53,9 @@ class GeoJsonFaker:
             geo_keys.multi_polygon: None,
             geo_keys.multi_polygon2d: None,
             geo_keys.multi_polygon3d: None,
+            geo_keys.geometry_collection: None,
+            geo_keys.geometry_collection2d: None,
+            geo_keys.geometry_collection3d: None,
         }
 
     @property
@@ -157,6 +162,26 @@ class GeoJsonFaker:
     def multi_polygon3d(self) -> MultiPolygon:
         return self._fake(
             func=fake_multi_polygon, geo_key=geo_keys.multi_polygon3d, dimension=Dimension.three
+        )
+
+    @property
+    def geometry_collection(self) -> GeometryCollection:
+        return self._fake(func=fake_geometry_collection, geo_key=geo_keys.geometry_collection)
+
+    @property
+    def geometry_collection2d(self) -> GeometryCollection:
+        return self._fake(
+            func=fake_geometry_collection,
+            geo_key=geo_keys.geometry_collection2d,
+            dimension=Dimension.two,
+        )
+
+    @property
+    def geometry_collection3d(self) -> GeometryCollection:
+        return self._fake(
+            func=fake_geometry_collection,
+            geo_key=geo_keys.geometry_collection3d,
+            dimension=Dimension.three,
         )
 
     def _fake(

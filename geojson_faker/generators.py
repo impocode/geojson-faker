@@ -1,6 +1,7 @@
 from random import randint, randrange, uniform
 
 from geojson_pydantic.geometries import (
+    GeometryCollection,
     LineString,
     MultiLineString,
     MultiPoint,
@@ -140,3 +141,48 @@ def fake_multi_polygon(
             polygon_coordinates.append(linear_ring)
         coordinates.append(polygon_coordinates)
     return MultiPolygon(type="MultiPolygon", coordinates=coordinates)
+
+
+def fake_geometry_collection(
+    dimension: Dimension | None = None,
+    # points
+    max_points: int = 10,
+    # multi_points
+    max_multi_points: int = 10,
+    # line_strings
+    max_line_strings: int = 10,
+    # multi_line_strings
+    max_multi_line_strings: int = 10,
+    # polygons
+    max_polygons: int = 10,
+    # multi_polygons
+    max_multi_polygons: int = 10,
+) -> GeometryCollection:
+    geometries = []
+    if max_points > 0:
+        geometries.extend([fake_point(dimension=dimension) for _ in _randintrange(1, max_points)])
+    if max_multi_points > 0:
+        geometries.extend(
+            [fake_multi_point(dimension=dimension) for _ in _randintrange(1, max_multi_points)]
+        )
+    if max_line_strings > 0:
+        geometries.extend(
+            [fake_line_string(dimension=dimension) for _ in _randintrange(1, max_line_strings)]
+        )
+    if max_multi_line_strings > 0:
+        geometries.extend(
+            [
+                fake_multi_line_string(dimension=dimension)
+                for _ in _randintrange(1, max_multi_line_strings)
+            ]
+        )
+    if max_polygons > 0:
+        geometries.extend(
+            [fake_polygon(dimension=dimension) for _ in _randintrange(1, max_polygons)]
+        )
+    if max_multi_polygons > 0:
+        geometries.extend(
+            [fake_multi_polygon(dimension=dimension) for _ in _randintrange(1, max_multi_polygons)]
+        )
+
+    return GeometryCollection(type="GeometryCollection", geometries=geometries)
