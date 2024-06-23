@@ -19,6 +19,14 @@
 |      Feature       | in progress |
 |  FeatureCollection | in progress |
 
+## Install
+
+```shell
+$ pip install geojson-faker
+```
+
+Or use your python package manager.
+
 ## Usage
 
 To generate fake geodata, you can use both methods and a special class `GeoJsonFaker`.
