@@ -12,6 +12,7 @@ from geojson_faker.generators import (
     fake_polygon,
     fake_position,
 )
+from geojson_faker.types import Dimension
 
 __version__ = "0.3.0"
 
@@ -28,4 +29,5 @@ __all__ = [
     "fake_polygon",
     "fake_multi_polygon",
     "fake_geometry_collection",
+    "Dimension",
 ]
