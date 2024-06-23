@@ -82,3 +82,11 @@ Point(bbox=None, type='Point', coordinates=Position3D(longitude=-124.54510003846
 >>> geojson_faker.point
 Point(bbox=None, type='Point', coordinates=Position3D(longitude=-124.54510003846121, latitude=25.225529991773328, altitude=-423.45973067919476))
 ```
+
+## License
+
+See [license.md](https://github.com/impocode/geojson-faker/blob/master/license.md).
+
+## Thank you
+
+If you like this open source project, I'd really appreciate it if you put a star. Thank you!
