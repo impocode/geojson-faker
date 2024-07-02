@@ -1,5 +1,8 @@
+import json
+from pathlib import Path
 from random import randint, randrange, uniform
 
+from geojson_pydantic.features import Feature
 from geojson_pydantic.geometries import (
     GeometryCollection,
     LineString,
@@ -186,3 +189,13 @@ def fake_geometry_collection(
         )
 
     return GeometryCollection(type="GeometryCollection", geometries=geometries)
+
+
+def fake_country(**kwargs) -> Feature:
+    countries_dir = (
+        Path(__file__).parent.joinpath("realistic_data").joinpath("countries").absolute()
+    )
+    countries = [country_file for country_file in countries_dir.iterdir() if country_file.is_file()]
+
+    with open(countries[randrange(len(countries))]) as f:
+        return Feature(**json.load(f))

@@ -1,3 +1,4 @@
+from geojson_pydantic.features import Feature
 from geojson_pydantic.geometries import (
     GeometryCollection,
     LineString,
@@ -400,3 +401,13 @@ def test_geometry_collection3d():
 
     for geometry in geometry_collection.geometries:
         assert isinstance(geometry, _GeometryBase)
+
+
+def test_country():
+    geojson_faker = GeoJsonFaker()
+    country = geojson_faker.country
+
+    assert isinstance(country, Feature)
+    assert country.type == "Feature"
+    assert isinstance(country.geometry, Polygon) or isinstance(country.geometry, MultiPolygon)
+    assert country.properties is not None

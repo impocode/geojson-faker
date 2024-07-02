@@ -1,6 +1,7 @@
 from geojson_faker.faker import GeoJsonFaker
 from geojson_faker.generators import (
     fake_altitude,
+    fake_country,
     fake_geometry_collection,
     fake_latitude,
     fake_line_string,
@@ -29,5 +30,6 @@ __all__ = [
     "fake_polygon",
     "fake_multi_polygon",
     "fake_geometry_collection",
+    "fake_country",
     "Dimension",
 ]

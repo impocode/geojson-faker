@@ -28,6 +28,7 @@ class geo_keys(NamedTuple):
     geometry_collection = "geometry_collection"
     geometry_collection2d = "geometry_collection2d"
     geometry_collection3d = "geometry_collection3d"
+    country = "country"
 
 
 DIMENSIONS = [Dimension.two, Dimension.three]
