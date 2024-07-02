@@ -91,6 +91,19 @@ Point(bbox=None, type='Point', coordinates=Position3D(longitude=-124.54510003846
 Point(bbox=None, type='Point', coordinates=Position3D(longitude=-124.54510003846121, latitude=25.225529991773328, altitude=-423.45973067919476))
 ```
 
+### Realistic data
+
+In addition to randomly generated data, you can get `realistic data`.
+
+Example of getting a random `country` of `Feature` type:
+
+```python
+>>> from geojson_faker import GeoJsonFaker
+>>> geojson_faker = GeoJsonFaker()
+>>> geojson_faker.country
+Feature(bbox=None, type='Feature', geometry=Polygon(bbox=None, type='Polygon', coordinates=[[Position2D(longitude=60.5176034, latitude=34.0617567), ...]]), properties={'name': 'افغانستان', 'name:en': 'Afghanistan', 'official_name': 'د افغانستان اسلامي جمهوريت', 'official_name:en': 'Islamic Republic of Afghanistan'}, id=None)
+```
+
 ## License
 
 See [license.md](https://github.com/impocode/geojson-faker/blob/master/license.md).
